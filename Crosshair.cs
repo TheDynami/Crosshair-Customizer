@@ -3,25 +3,23 @@ using UnityEngine.UI;
 
 public class Crosshair : MonoBehaviour
 {
-    Camera cam;
+        Camera cam;
 
     public Image[] images;
-    public Transform[] transforms, outlineTransforms;
+    public Transform[] transforms;//, outlineTransforms;
     public RectTransform dot;
     public RectTransform left, right, up, down;
 
     public float dotSize;
 
-    public float length, width, gap, outline;
+    public float length, width, gap;
+    //public float outline;
     public bool tStyle;
 
     public Color neutral, enemy;
     public LayerMask enemyLayer;
 
-    private void Awake()
-    {
-        cam = Camera.main;
-    }
+    private void Awake() => cam = Camera.main;
 
     private void Update()
     {
@@ -46,6 +44,8 @@ public class Crosshair : MonoBehaviour
         up.localPosition = new Vector2(0, -gap);
         down.localPosition = new Vector2(0, gap);
 
+        //outline
+
         //tStyle
         if (tStyle)
             up.gameObject.SetActive(false);
@@ -63,13 +63,5 @@ public class Crosshair : MonoBehaviour
             foreach (Image image in images)
                 image.color = enemy;
         }
-    }
-
-    bool enemyCheck()
-    {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        return Physics.Raycast(ray, out hit, Mathf.Infinity, enemyLayer);
     }
 } 
